@@ -1,6 +1,7 @@
 # Goal is automate the process of organizing my downloads folder by file extension
 
 import os
+import shutil
 
 currentUser = os.getlogin()
 
@@ -34,9 +35,15 @@ for ext in noDuplicateExtentionsList:
 for file in listOfFiles:
     if os.path.isfile(folderPath + "\\" + file):
         try:
-            os.rename(folderPath + "\\" + file, folderPath + "\\" + "Test" + os.path.splitext(file)[1] + "\\" + file)
-        except:
-            print("Not able to move file to respective folder")
+            if os.path.exists(folderPath + "\\" + "Test" + os.path.splitext(file)[1] + "\\" + file):
+                temp = folderPath + "\\" + "Test" + os.path.splitext(file)[1] + "\\" + file
+                counter = 0
+                # os.remove(file)
+                print("Test1: " + temp )
+                #os.rename(folderPath + "\\" + file, folderPath + "\\" + "Test" + os.path.splitext(file)[1] + "\\" + file)
+                counter+=1
+        except FileExistsError:
+            print("Not able to move file:"+file+" to respective folder")
 
 # I believe I am done now.
 
